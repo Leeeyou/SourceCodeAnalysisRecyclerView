@@ -32,17 +32,14 @@ class MainActivity : AppCompatActivity() {
     private fun linearLayoutVertical() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf)
-        recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.removeItemDecoration(dividerItemDecoration)
         dividerItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun linearLayoutHorizontal() {
-        recyclerView.removeAllViews()
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.removeItemDecoration(dividerItemDecoration)
         dividerItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
@@ -50,14 +47,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun verticalGridLayout() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.VERTICAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.addItemDecoration(DividerGridItemDecoration(this@MainActivity))
     }
 
     private fun horizontalGridLayout() {
-        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 4, GridLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
+        recyclerView.addItemDecoration(DividerGridItemDecoration(this@MainActivity))
     }
 
     private fun verticalStaggeredGridLayout() {
