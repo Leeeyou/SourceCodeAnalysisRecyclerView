@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SourceCodeAnalysisRecyclerView</string>
+    <string name="action_VerticalLinearLayout">VerticalLinearLayout</string>
+    <string name="action_HorizontalLinearLayout">HorizontalLinearLayout</string>
+    <string name="action_VerticalGridLayout">VerticalGridLayout</string>
+    <string name="action_HorizontalGridLayout">HorizontalGridLayout</string>
+    <string name="action_VerticalStaggeredGridLayout">VerticalStaggeredGridLayout</string>
+    <string name="action_HorizontalStaggeredGridLayout">HorizontalStaggeredGridLayout</string>
+</resources>
