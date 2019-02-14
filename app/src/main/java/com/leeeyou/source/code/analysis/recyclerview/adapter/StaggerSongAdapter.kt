@@ -32,14 +32,4 @@ class StaggerSongAdapter(private var dataList: MutableList<String>, val orientat
         var tvSongName: TextView = itemView.findViewById(R.id.tv_song_name)
     }
 
-    fun addData(position: Int) {
-        dataList.add(position, "Insert One")
-        notifyItemInserted(position)
-    }
-
-    fun removeData(position: Int) {
-        dataList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
 }
