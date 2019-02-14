@@ -86,7 +86,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun verticalStaggeredGrid() {
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL)
+        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = staggeredGridLayoutManager
         recyclerView.adapter = StaggerSongAdapter(mutableListOf, RecyclerView.VERTICAL)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        for (i in 0..110 step 1) {
+        for (i in 0..51 step 1) {
             mutableListOf.add("Item $i")
         }
     }
