@@ -24,7 +24,7 @@ class StaggerSongAdapter(private var dataList: MutableList<String>, val orientat
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.tvSongName?.text = dataList[position]
         val layoutParams = holder?.tvSongName?.layoutParams
-        layoutParams?.height = RandomUtils.getRandom(200, 700)
+        layoutParams?.height = RandomUtils.getRandom(300, 500)
         holder?.tvSongName?.layoutParams = layoutParams
     }
 
