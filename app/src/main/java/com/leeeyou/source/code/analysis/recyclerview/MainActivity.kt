@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
     private val mutableListOf: MutableList<String> = mutableListOf()
-    private lateinit var dividerItemDecoration: DividerItemDecoration
+    private lateinit var dividerLinearLayoutItemDecoration: DividerLinearItemDecoration
+    private lateinit var dividerGridItemDecoration: DividerGridItemDecoration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,56 +24,69 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        dividerItemDecoration = DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
+        dividerLinearLayoutItemDecoration = DividerLinearItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
+        dividerGridItemDecoration = DividerGridItemDecoration(this@MainActivity)
 
         initData()
-        linearLayoutVertical()
+        verticalGridLayout()
     }
 
     private fun linearLayoutVertical() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf)
-        recyclerView.removeItemDecoration(dividerItemDecoration)
-        dividerItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(dividerItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        dividerLinearLayoutItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(dividerLinearLayoutItemDecoration)
     }
 
     private fun linearLayoutHorizontal() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.removeItemDecoration(dividerItemDecoration)
-        dividerItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
-        recyclerView.addItemDecoration(dividerItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        dividerLinearLayoutItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
+        recyclerView.addItemDecoration(dividerLinearLayoutItemDecoration)
     }
 
     private fun verticalGridLayout() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.VERTICAL, false)
-        recyclerView.addItemDecoration(DividerGridItemDecoration(this@MainActivity))
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
     private fun horizontalGridLayout() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
-        recyclerView.addItemDecoration(DividerGridItemDecoration(this@MainActivity))
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
     private fun verticalStaggeredGridLayout() {
         recyclerView.layoutManager = StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
     private fun horizontalStaggeredGridLayout() {
         recyclerView.layoutManager = StaggeredGridLayoutManager(4, GridLayoutManager.HORIZONTAL)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
     private fun initData() {
-        for (i in 0..100 step 2) {
-            mutableListOf.add("Line $i")
+        for (i in 0..10 step 1) {
+            mutableListOf.add("Item $i")
         }
 
-        mutableListOf.add(4, "Line Line Line Line Line Line Line Line Line 8")
+//        mutableListOf.ins(4, "Line Line Line Line Line Line Line Line Line 8")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
