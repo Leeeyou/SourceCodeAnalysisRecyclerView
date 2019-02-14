@@ -1,127 +1,146 @@
 package com.leeeyou.source.code.analysis.recyclerview
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import com.leeeyou.source.code.analysis.recyclerview.adapter.SongAdapter
+import com.leeeyou.source.code.analysis.recyclerview.adapter.StaggerSongAdapter
+import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerGridItemDecoration
+import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerLinearItemDecoration
+import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerStaggeredGridItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
     private val mutableListOf: MutableList<String> = mutableListOf()
-    private lateinit var dividerLinearLayoutItemDecoration: DividerLinearItemDecoration
+    private lateinit var dividerLinearItemDecoration: DividerLinearItemDecoration
     private lateinit var dividerGridItemDecoration: DividerGridItemDecoration
+    private lateinit var dividerStaggeredGridItemDecoration: DividerStaggeredGridItemDecoration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab_add.setOnClickListener {
+            (recyclerView.adapter as SongAdapter).addData(3)
         }
 
-        dividerLinearLayoutItemDecoration = DividerLinearItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
+        fab_remove.setOnClickListener {
+            val songAdapter = recyclerView.adapter as SongAdapter
+            if (songAdapter.itemCount > 3) {
+                (songAdapter).removeData(3)
+            } else {
+                Toast.makeText(this@MainActivity, "增加点再来删除吧", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dividerLinearItemDecoration = DividerLinearItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
         dividerGridItemDecoration = DividerGridItemDecoration(this@MainActivity)
+        dividerStaggeredGridItemDecoration = DividerStaggeredGridItemDecoration(this@MainActivity)
 
         initData()
-        verticalGridLayout()
+        verticalGrid()
     }
 
-    private fun linearLayoutVertical() {
+    private fun verticalLinear() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
-        dividerLinearLayoutItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
+        dividerLinearItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(dividerLinearItemDecoration)
     }
 
-    private fun linearLayoutHorizontal() {
+    private fun horizontalLinear() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
-        dividerLinearLayoutItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
-        recyclerView.addItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
+        dividerLinearItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
+        recyclerView.addItemDecoration(dividerLinearItemDecoration)
     }
 
-    private fun verticalGridLayout() {
+    private fun verticalGrid() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
-    private fun horizontalGridLayout() {
+    private fun horizontalGrid() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
-    private fun verticalStaggeredGridLayout() {
-        recyclerView.layoutManager = StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+    private fun verticalStaggeredGrid() {
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL)
+        recyclerView.adapter = StaggerSongAdapter(mutableListOf, RecyclerView.VERTICAL)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
-        recyclerView.addItemDecoration(dividerGridItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
+        recyclerView.addItemDecoration(dividerStaggeredGridItemDecoration)
     }
 
-    private fun horizontalStaggeredGridLayout() {
-        recyclerView.layoutManager = StaggeredGridLayoutManager(4, GridLayoutManager.HORIZONTAL)
+    private fun horizontalStaggeredGrid() {
+        recyclerView.layoutManager = StaggeredGridLayoutManager(3, GridLayoutManager.HORIZONTAL)
         recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
-        recyclerView.removeItemDecoration(dividerLinearLayoutItemDecoration)
+        recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
+        recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
     }
 
     private fun initData() {
-        for (i in 0..10 step 1) {
+        for (i in 0..110 step 1) {
             mutableListOf.add("Item $i")
         }
-
-//        mutableListOf.ins(4, "Line Line Line Line Line Line Line Line Line 8")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        fab_add.visibility = if (item.itemId != R.id.action_VerticalStaggeredGridLayout) View.VISIBLE else View.INVISIBLE
+        fab_remove.visibility = if (item.itemId != R.id.action_VerticalStaggeredGridLayout) View.VISIBLE else View.INVISIBLE
+
         return when (item.itemId) {
             R.id.action_VerticalLinearLayout -> {
-                linearLayoutVertical()
+                verticalLinear()
                 true
             }
             R.id.action_HorizontalLinearLayout -> {
-                linearLayoutHorizontal()
+                horizontalLinear()
                 true
             }
             R.id.action_VerticalGridLayout -> {
-                verticalGridLayout()
+                verticalGrid()
                 true
             }
             R.id.action_HorizontalGridLayout -> {
-                horizontalGridLayout()
+                horizontalGrid()
                 true
             }
             R.id.action_VerticalStaggeredGridLayout -> {
-                verticalStaggeredGridLayout()
+                verticalStaggeredGrid()
                 true
             }
             R.id.action_HorizontalStaggeredGridLayout -> {
-                horizontalStaggeredGridLayout()
+                horizontalStaggeredGrid()
                 true
             }
             else -> super.onOptionsItemSelected(item)

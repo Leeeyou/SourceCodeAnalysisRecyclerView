@@ -1,4 +1,4 @@
-package com.leeeyou.source.code.analysis.recyclerview
+package com.leeeyou.source.code.analysis.recyclerview.decoration
 
 import android.content.Context
 import android.graphics.Canvas
