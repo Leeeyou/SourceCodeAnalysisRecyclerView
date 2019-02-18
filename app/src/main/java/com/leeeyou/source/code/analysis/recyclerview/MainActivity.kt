@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        fab_refresh.setOnClickListener {
+            (recyclerView.adapter as SongAdapter).notifyDataSetChanged()
+        }
+
         dividerLinearItemDecoration = DividerLinearItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
         dividerGridItemDecoration = DividerGridItemDecoration(this@MainActivity)
         dividerStaggeredGridItemDecoration = DividerStaggeredGridItemDecoration(this@MainActivity)
@@ -167,4 +171,21 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+//    public static void scrollToBottom(final View scroll, final View innerView) {
+//        Handler handler = new Handler();
+//        handler.post(new Runnable() {
+//            public void run() {
+//                if (scroll == null || innerView == null) {
+//                    return;
+//                }
+//                int offset = innerView.getMeasuredHeight() - scroll.getHeight();
+//                if (offset < 0)
+//                    offset = 0;
+//
+//                scroll.scrollTo(0, offset);
+//            }
+//        });
+//    }
+
 }

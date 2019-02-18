@@ -125,10 +125,10 @@ public class RcyLog {
             Class<?> recyclerPoolClass = Class.forName(mRecyclerPool.getType().getName());
 
             StringBuilder builder = new StringBuilder();
-            builder.append("当前Attached数量：").append(mAttached.maxSize).append("\n")
+            builder.append("当前mAttachedScrap数量：").append(mAttached.maxSize).append("\n")
                     .append("当前mViewCacheSize数量：").append(mViewCacheSize).append("\n")
-                    .append("当前Changed数量：").append(mChanged == null ? 0 : mChanged.size()).append("\n")
-                    .append("当前Cache的数量：").append(mCached.size()).append("\n");
+//                    .append("当前Changed数量：").append(mChanged == null ? 0 : mChanged.size()).append("\n")
+                    .append("当前mCachedViews的数量：").append(mCached.size()).append("\n");
             if (mCached.size() > 0) {
                 for (RecyclerView.ViewHolder vh : mCached) {
                     builder.append(vh.getItemViewType() == 1 ? "Image" : "      Text Position is : ").append(vh.getLayoutPosition()).append("\n");
