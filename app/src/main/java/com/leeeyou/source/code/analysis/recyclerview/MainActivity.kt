@@ -12,6 +12,8 @@ import com.leeeyou.source.code.analysis.recyclerview.adapter.StaggerSongAdapter
 import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerGridItemDecoration
 import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerLinearItemDecoration
 import com.leeeyou.source.code.analysis.recyclerview.decoration.DividerStaggeredGridItemDecoration
+import com.leeeyou.source.code.analysis.recyclerview.widget.RcyLog
+import com.leeeyou.source.code.analysis.recyclerview.widget.SRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -44,22 +46,40 @@ class MainActivity : AppCompatActivity() {
         dividerStaggeredGridItemDecoration = DividerStaggeredGridItemDecoration(this@MainActivity)
 
         initData()
-        verticalGrid()
+        verticalLinear()
     }
 
     private fun verticalLinear() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf)
+        recyclerView.adapter = SongAdapter(mutableListOf, tvCreateAndBind = tv_create_and_bind)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         dividerLinearItemDecoration.setOrientation(DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerLinearItemDecoration)
+        recyclerView.setOnLayoutListener(object : SRecyclerView.onLayoutListener {
+            override fun beforeLayout() {
+                recyclerView.setAllCache()
+            }
+
+            override fun afterLayout() {
+                RcyLog.loaAllCache(tv_recycler_field, recyclerView)
+            }
+        })
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                //RcyLog.logScrapCache(recyclerView);
+                //RcyLog.logCache("onScroll时：", recyclerView);
+                //RcyLog.logPool(recyclerView);
+                RcyLog.loaAllCache(tv_recycler_field, recyclerView)
+                scroll.scrollBy(dx, Math.abs(dy))
+            }
+        })
     }
 
     private fun horizontalLinear() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL, tv_create_and_bind)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
@@ -69,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun verticalGrid() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.VERTICAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL)
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.VERTICAL, tv_create_and_bind)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
@@ -78,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun horizontalGrid() {
         recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL, tv_create_and_bind)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
@@ -97,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun horizontalStaggeredGrid() {
         recyclerView.layoutManager = StaggeredGridLayoutManager(3, GridLayoutManager.HORIZONTAL)
-        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL)
+        recyclerView.adapter = SongAdapter(mutableListOf, RecyclerView.HORIZONTAL, tv_create_and_bind)
         recyclerView.removeItemDecoration(dividerLinearItemDecoration)
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
