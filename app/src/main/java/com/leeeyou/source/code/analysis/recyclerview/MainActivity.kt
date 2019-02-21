@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab_refresh.setOnClickListener {
-            (recyclerView.adapter as SongAdapter).notifyDataSetChanged()
+            (recyclerView.adapter as SongAdapter).notifyItemChanged(4)
         }
 
         dividerLinearItemDecoration = DividerLinearItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
@@ -79,6 +79,17 @@ class MainActivity : AppCompatActivity() {
                 scroll.scrollBy(dx, Math.abs(dy))
             }
         })
+        showDebugBox()
+    }
+
+    private fun goneDebugBox() {
+        tv_recycler_field.visibility = View.GONE
+        scroll.visibility = View.GONE
+    }
+
+    private fun showDebugBox() {
+        tv_recycler_field.visibility = View.VISIBLE
+        scroll.visibility = View.VISIBLE
     }
 
     private fun horizontalLinear() {
@@ -89,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         dividerLinearItemDecoration.setOrientation(DividerItemDecoration.HORIZONTAL)
         recyclerView.addItemDecoration(dividerLinearItemDecoration)
+        goneDebugBox()
     }
 
     private fun verticalGrid() {
@@ -98,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
+        goneDebugBox()
     }
 
     private fun horizontalGrid() {
@@ -107,6 +120,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
+        goneDebugBox()
     }
 
     private fun verticalStaggeredGrid() {
@@ -117,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerStaggeredGridItemDecoration)
+        goneDebugBox()
     }
 
     private fun horizontalStaggeredGrid() {
@@ -126,6 +141,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.removeItemDecoration(dividerGridItemDecoration)
         recyclerView.removeItemDecoration(dividerStaggeredGridItemDecoration)
         recyclerView.addItemDecoration(dividerGridItemDecoration)
+        goneDebugBox()
     }
 
     private fun initData() {
